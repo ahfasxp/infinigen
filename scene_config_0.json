@@ -1,0 +1,91 @@
+{
+    "surface": {
+        "ground_collection": "dirt",
+        "mountain_collection": "stone",
+        "liquid_collection": "water"
+    },
+    "lighting": {
+        "dust_density": 2.0,
+        "air_density": 1.0,
+        "strength": 0.18,
+        "sun_intensity": 0.6,
+        "sun_elevation": 5.0,
+        "sun_rotation": 0.0,
+        "ozone_density": 1.0,
+        "cloud_density": 0.02
+    },
+    "terrain": {
+        "base": "mountain"
+    },
+    "n_tree_species": 1,
+    "n_bush_species": 1,
+    "bush_control": {
+        "shrub_shape": 2,
+        "max_distance": 20,
+        "n_twig": 2,
+        "n_leaf": 50,
+        "leaf_type": "flower"
+    },
+    "bush_density": 0.01,
+    "n_boulder_species": 2,
+    "n_cactus_species": 0,
+    "cactus_density": 0.001,
+    "boulder_density": 0.02,
+    "glow_rock_density": 0,
+    "add_ground_twigs": false,
+    "has_leaf_particles": true,
+    "has_rain_particles": false,
+    "has_dust_particles": false,
+    "has_marine_snow_particles": false,
+    "has_snow_particles": false,
+    "add_rock": false,
+    "add_grass": true,
+    "add_monocots": false,
+    "add_ferns": true,
+    "add_flowers": true,
+    "add_pine_needle": false,
+    "add_decorative_plants": true,
+    "add_chopped_trees": true,
+    "add_ground_leaves": false,
+    "populate": {
+        "slime_mold_on_trees_per_instance_chance": 0,
+        "lichen_on_trees_per_instance_chance": 0,
+        "ivy_on_trees_per_instance_chance": 0,
+        "mushroom_on_trees_per_instance_chance": 0,
+        "moss_on_trees_per_instance_chance": 0,
+        "slime_mold_on_boulders_per_instance_chance": 0,
+        "lichen_on_boulders_per_instance_chance": 0,
+        "ivy_on_boulders_per_instance_chance": 0,
+        "mushroom_on_boulders_per_instance_chance": 0,
+        "moss_on_boulders_per_instance_chance": 0
+    },
+    "tree_species_params": [
+        {
+            "density": 0.04,
+            "distance_min": 0.5,
+            "control": {
+                "leaf_type": "leaf",
+                "fruit_type": "None",
+                "leaf_density": 0.05
+            }
+        },
+        {
+            "density": 0.01,
+            "distance_min": 1.0,
+            "control": {
+                "leaf_type": "leaf",
+                "fruit_type": "None",
+                "leaf_density": 0.02
+            }
+        },
+        {
+            "density": 0.02,
+            "distance_min": 0.8,
+            "control": {
+                "leaf_type": "leaf",
+                "fruit_type": "None",
+                "leaf_density": 0.03
+            }
+        }
+    ]
+}
