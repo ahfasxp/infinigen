@@ -1,0 +1,95 @@
+# === Konfigurasi Adegan Kustom ===
+
+# --- Konfigurasi Permukaan ---
+surface.registry.ground_collection = [("dirt", 1)]
+surface.registry.mountain_collection = [("stone", 1)]
+surface.registry.liquid_collection = [("water", 1)]
+
+# --- Konfigurasi Pencahayaan ---
+sky_lighting.nishita_lighting.dust_density = 2.0
+sky_lighting.nishita_lighting.air_density = 1.0
+sky_lighting.nishita_lighting.strength = 0.18
+sky_lighting.nishita_lighting.sun_intensity = 0.6
+sky_lighting.nishita_lighting.sun_elevation = 5.0 # Derajat, akan dikonversi ke radian jika perlu oleh fungsi
+sky_lighting.nishita_lighting.sun_rotation = 0.0 # Derajat, akan dikonversi ke radian jika perlu oleh fungsi
+sky_lighting.nishita_lighting.ozone_density = 1.0
+# Untuk cloud_density = 0.02, kita aktifkan fancy_clouds. Kepadatan spesifik mungkin perlu diatur
+# dalam parameter kole_clouds jika tersedia dan diinginkan.
+compose_nature.fancy_clouds_chance = 0.5 # Beri kesempatan 50% untuk awan muncul (menggantikan cloud_density)
+
+# --- Konfigurasi Medan ---
+# Menggunakan pendekatan dari desert.gin untuk tipe medan "mountain"
+LandTiles.tiles = ["Mountain"] # Pastikan "Mountain" adalah nama tile yang valid
+LandTiles.randomness = 1
+LandTiles.tile_heights = [-2]
+LandTiles.tile_density = 0.25
+
+# --- Jumlah & Parameter Aset ---
+compose_nature.max_tree_species = 1
+compose_nature.max_bush_species = 1
+compose_nature.max_boulder_species = 2
+compose_nature.cactus_chance = 0.0 # n_cactus_species = 0
+
+# --- Parameter Semak ---
+compose_nature.bush_density = 0.01
+# Catatan: Parameter dalam "bush_control" (shrub_shape, max_distance, n_twig, n_leaf, leaf_type)
+# sulit dipetakan langsung ke BushFactory melalui Gin tanpa modifikasi generate_nature.py.
+# Pengaturan berikut adalah upaya spekulatif untuk mengatur default pabrik jika memungkinkan:
+# trees.BushFactory.default_shrub_shape = 2
+# trees.BushFactory.default_max_distance = 20
+# trees.BushFactory.default_n_twig = 2
+# trees.BushFactory.default_n_leaf = 50
+# trees.BushFactory.default_leaf_type = "flower"
+
+# --- Kepadatan Aset Lain ---
+compose_nature.cactus_density = 0.001 # Akan diabaikan karena cactus_chance = 0.0
+compose_nature.boulder_density = 0.02
+compose_nature.glow_rock_density = 0.0
+
+# --- Bendera Boolean untuk Elemen Adegan (menggunakan *_chance) ---
+compose_nature.ground_twigs_chance = 0.0 # add_ground_twigs = false
+compose_nature.leaf_particles_chance = 1.0 # has_leaf_particles = true
+compose_nature.rain_particles_chance = 0.0 # has_rain_particles = false
+compose_nature.dust_particles_chance = 0.0 # has_dust_particles = false
+compose_nature.marine_snow_particles_chance = 0.0 # has_marine_snow_particles = false
+compose_nature.snow_particles_chance = 0.0 # has_snow_particles = false
+compose_nature.rocks_chance = 0.0 # add_rock = false
+compose_nature.grass_chance = 1.0 # add_grass = true
+compose_nature.monocots_chance = 0.0 # add_monocots = false
+compose_nature.ferns_chance = 1.0 # add_ferns = true
+compose_nature.flowers_chance = 1.0 # add_flowers = true
+compose_nature.pine_needle_chance = 0.0 # add_pine_needle = false
+compose_nature.decorative_plants_chance = 1.0 # add_decorative_plants = true
+compose_nature.chopped_trees_chance = 1.0 # add_chopped_trees = true
+compose_nature.ground_leaves_chance = 0.0 # add_ground_leaves = false
+
+# --- Konfigurasi Populasi Detail (Grime) ---
+# Ini adalah parameter untuk fungsi `populate_scene`
+populate_scene.slime_mold_on_trees_per_instance_chance = 0.0
+populate_scene.lichen_on_trees_per_instance_chance = 0.0
+populate_scene.ivy_on_trees_per_instance_chance = 0.0
+populate_scene.mushroom_on_trees_per_instance_chance = 0.0
+populate_scene.moss_on_trees_per_instance_chance = 0.0
+populate_scene.slime_mold_on_boulders_per_instance_chance = 0.0
+populate_scene.lichen_on_boulders_per_instance_chance = 0.0
+populate_scene.ivy_on_boulders_per_instance_chance = 0.0
+populate_scene.mushroom_on_boulders_per_instance_chance = 0.0
+populate_scene.moss_on_boulders_per_instance_chance = 0.0
+
+# --- Parameter Spesies Pohon ---
+# Karena compose_nature.max_tree_species = 1, hanya satu spesies pohon yang akan dibuat.
+# Kita akan menggunakan kepadatan dari entri pertama tree_species_params Anda.
+# Parameter `distance_min` dan `control` (leaf_type, dll.) lebih sulit diatur per spesies
+# melalui Gin tanpa modifikasi kode karena `choose_forest_params` di `generate_nature.py`
+# menginisialisasi ini dengan beberapa keacakan atau default pabrik.
+compose_nature.tree_density = 0.04 # Diambil dari tree_species_params[0].density
+
+# Catatan: Untuk `tree_species_params[0].distance_min = 0.5` dan parameter `control`
+# (leaf_type, fruit_type, leaf_density), ini kemungkinan akan menggunakan default dari
+# `choose_forest_params` atau `TreeFactory`. Mengaturnya secara spesifik per spesies
+# melalui Gin untuk `compose_nature` yang ada saat ini tidak mudah.
+# Upaya spekulatif untuk mengatur default TreeFactory (jika TreeFactory mendukungnya):
+# trees.TreeFactory.default_leaf_type = "leaf"
+# trees.TreeFactory.default_fruit_type = "None"
+# trees.TreeFactory.default_leaf_density = 0.05
+# trees.TreeFactory.default_distance_min = 0.5
