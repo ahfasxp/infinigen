@@ -38,16 +38,21 @@ compose_nature.bush_density = 0.01 # As per JSON
 # These parameters are not directly passed to BushFactory by generate_nature.py.
 # The following lines are an attempt to set factory defaults, which would work
 # ONLY IF BushFactory supports GIN configuration for these defaults.
-# trees.BushFactory.default_shrub_shape = 2
-# trees.BushFactory.default_max_distance = 20
-# trees.BushFactory.default_n_twig = 2
-# trees.BushFactory.default_n_leaf = 50
-# trees.BushFactory.default_leaf_type = "flower"
+# For bush_control from JSON (shrub_shape, max_distance, n_twig, n_leaf, leaf_type):
+# n_twig and n_leaf are class attributes of BushFactory and might be settable.
+# Other parameters like shrub_shape, max_distance, and leaf_type are determined
+# internally or are not direct Gin-configurable __init__ args without Python code changes.
+trees.BushFactory.n_twig = 2
+trees.BushFactory.n_leaf = 50
+# Note: shrub_shape from JSON (2) is used in treeconfigs.shrub(), not directly set on BushFactory via Gin.
+# Note: max_distance from JSON (20) is a GenericTreeFactory param, not directly exposed in BushFactory __init__.
+# Note: leaf_type="flower" (from JSON) has a 0.5 probability in BushFactory's default logic.
+# To consistently get "flower", BushFactory code modification would be needed.
 
 # --- Other Asset Densities ---
 compose_nature.cactus_density = 0.001 # Will be ignored due to cactus_chance = 0.0
 compose_nature.boulder_density = 0.02 # As per JSON
-compose_nature.glow_rock_density = 0.0 # As per JSON
+compose_nature.glowing_rocks_chance = 0.0 # JSON: glow_rock_density = 0, so disable glowing rocks.
 
 # --- Boolean Flags for Scene Elements (using *_chance) ---
 # All mapped from boolean values in JSON to *_chance = 1.0 (true) or 0.0 (false)
@@ -87,11 +92,18 @@ compose_nature.tree_density = 0.04 # As per JSON tree_species_params[0].density
 # Note for tree_species_params[0].distance_min from JSON (0.5):
 # This value CANNOT be applied via GIN because generate_nature.py
 # explicitly sets distance_min to uniform(1, 2.5) in choose_forest_params().
+# trees.TreeFactory.default_distance_min = 0.5 # This would have no effect.
 
-# For control parameters from tree_species_params[0] (leaf_type, fruit_type, leaf_density):
-# This is an attempt to set TreeFactory defaults. Will work ONLY IF
-# TreeFactory supports GIN configuration for these defaults.
-trees.TreeFactory.default_leaf_type = "leaf"
-trees.TreeFactory.default_fruit_type = "None" # "None" as a string
-trees.TreeFactory.default_leaf_density = 0.05
-# trees.TreeFactory.default_distance_min = 0.5 # Would have no effect as it's overridden in choose_forest_params
+# For control parameters from tree_species_params[0].control in JSON:
+# "leaf_type": "leaf" -> Not directly settable on TreeFactory via Gin without code changes.
+#                        TreeFactory's internal logic (self.get_leaf_type) will be used.
+# "fruit_type": "None" -> This can be achieved by setting fruit_chance to 0.
+trees.TreeFactory.fruit_chance = 0.0
+# "leaf_density": 0.05 -> Not a direct Gin-configurable parameter for TreeFactory.
+#                          This might relate to make_leaf_collection or twig_params internal details.
+
+# The following lines attempting to set defaults will likely not work as intended or cause errors,
+# as these are not direct __init__ args of TreeFactory in a way Gin typically configures them.
+# trees.TreeFactory.default_leaf_type = "leaf"
+# trees.TreeFactory.default_fruit_type = "None" # Use fruit_chance = 0.0 instead.
+# trees.TreeFactory.default_leaf_density = 0.05
