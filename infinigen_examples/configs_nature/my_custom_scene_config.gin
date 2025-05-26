@@ -11,7 +11,7 @@ sky_lighting.nishita_lighting.air_density = 1.0
 sky_lighting.nishita_lighting.strength = 0.18
 sky_lighting.nishita_lighting.sun_intensity = 0.6
 sky_lighting.nishita_lighting.sun_elevation = 5.0 # Derajat, akan dikonversi ke radian jika perlu oleh fungsi
-sky_lighting.nishita_lighting.sun_rotation = 0.0 # Derajat, akan dikonversi ke radian jika perlu oleh fungsi
+sky_lighting.nishita_lighting.camera_based_rotation = 0.0 # Derajat, rotasi relatif terhadap kamera
 sky_lighting.nishita_lighting.ozone_density = 1.0
 # Untuk cloud_density = 0.02, kita aktifkan fancy_clouds. Kepadatan spesifik mungkin perlu diatur
 # dalam parameter kole_clouds jika tersedia dan diinginkan.
