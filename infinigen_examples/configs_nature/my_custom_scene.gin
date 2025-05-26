@@ -44,8 +44,8 @@ compose_nature.bush_density = 0.01 # As per JSON
 # n_twig and n_leaf are class attributes of BushFactory and might be settable.
 # Other parameters like shrub_shape, max_distance, and leaf_type are determined
 # internally or are not direct Gin-configurable __init__ args without Python code changes.
-trees.BushFactory.n_twig = 2
-trees.BushFactory.n_leaf = 50
+# trees.BushFactory.n_twig = 2 # Temporarily commented out due to Gin "No configurable matching" error
+# trees.BushFactory.n_leaf = 50 # Temporarily commented out due to Gin "No configurable matching" error
 # Note: shrub_shape from JSON (2) is used in treeconfigs.shrub(), not directly set on BushFactory via Gin.
 # Note: max_distance from JSON (20) is a GenericTreeFactory param, not directly exposed in BushFactory __init__.
 # Note: leaf_type="flower" (from JSON) has a 0.5 probability in BushFactory's default logic.
@@ -100,7 +100,7 @@ compose_nature.tree_density = 0.04 # As per JSON tree_species_params[0].density
 # "leaf_type": "leaf" -> Not directly settable on TreeFactory via Gin without code changes.
 #                        TreeFactory's internal logic (self.get_leaf_type) will be used.
 # "fruit_type": "None" -> This can be achieved by setting fruit_chance to 0.
-trees.TreeFactory.fruit_chance = 0.0
+# trees.TreeFactory.fruit_chance = 0.0 # Temporarily commented out due to Gin "No configurable matching" error
 # "leaf_density": 0.05 -> Not a direct Gin-configurable parameter for TreeFactory.
 #                          This might relate to make_leaf_collection or twig_params internal details.
 
